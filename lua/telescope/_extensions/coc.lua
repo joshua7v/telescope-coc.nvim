@@ -278,6 +278,7 @@ local function list_or_jump(opts)
   if config.theme then
     opts = vim.tbl_deep_extend("force", opts or {}, config.theme)
   end
+  opts.path_display = { "smart" }
   if not is_ready(opts.coc_provider) then
     return
   end
@@ -403,6 +404,7 @@ end
 
 local references_used = function(opts)
   opts.excludeDeclaration = true
+  opts.path_display = { "smart" }
   references(opts)
 end
 
@@ -495,6 +497,7 @@ local workspace_symbols = function(opts)
   if config.theme then
     opts = vim.tbl_deep_extend("force", opts or {}, config.theme)
   end
+  opts.path_display = { "smart" }
   pickers.new(opts, {
     prompt_title = 'Coc Workspace Symbols',
     finder = finders.new_dynamic({
@@ -572,7 +575,7 @@ end
 
 local workspace_diagnostics = function(opts)
   opts = F.if_nil(opts, {})
-  opts.path_display = F.if_nil(opts.path_display, { 'shorten' })
+  opts.path_display = F.if_nil(opts.path_display, { 'smart' })
   opts.prompt_title = 'Coc Workspace Diagnostics'
   opts.get_all = true
   diagnostics(opts)
